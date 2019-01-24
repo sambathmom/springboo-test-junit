@@ -28,6 +28,7 @@ public class TestWebApp extends SpringbootTestApplicationTests {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 
+	/* url: https://www.tutorialspoint.com/spring_boot/spring_boot_rest_controller_unit_test.htm */
 	@Test
 	public void testEmployee() throws Exception {
 		mockMvc.perform(get("/employee")).andExpect(status().isOk())
@@ -37,11 +38,6 @@ public class TestWebApp extends SpringbootTestApplicationTests {
 
 	}
 	
-	@Test
-    public void testHomeController() {
-        TestController testController = new TestController();
-        String result = testController.home();
-        assertEquals(result, "Hello World!");
-    }
+	
 
 }
