@@ -2,34 +2,41 @@ package com.example.demo.test.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.apache.catalina.LifecycleListener;
+import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.SpringbootTestApplicationTests;
 import com.example.demo.dao.ProductDaoImp;
 import com.example.demo.model.Product;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductDaoImpTest extends SpringbootTestApplicationTests {
 
 	@Autowired
 	ProductDaoImp productDao;
 	
 	@Test
-    public void testSaveAndFindById() {
-        Product productToBeSaved = new Product(4, "fifa", 12);
+    public void test1SaveAndFindById() {
+        Product productToBeSaved = new Product(1, "fifa", 12);
         productDao.add(productToBeSaved);
         
-        Product product = productDao.findById(4);
+        Product product = productDao.findById(1);
 
         assertEquals("fifa", product.getName());
     }
 	
-	
 	@Test
-	public void updateTest() {
+	public void test2Update() {
 		/* Save */
-		Product productToBeSaved = new Product(5, "fifa", 12);
+		Product productToBeSaved = new Product(1, "fifa", 12);
         productDao.add(productToBeSaved);
         
         /* Update */
@@ -42,15 +49,17 @@ public class ProductDaoImpTest extends SpringbootTestApplicationTests {
 	}
 	
 	@Test
-	public void deleteTest() {
-		/* Save */
-		Product productToBeSaved = new Product(6, "fifa", 12);
-        productDao.add(productToBeSaved);
+	public void test3GetProducts() {
+		List<Product> productList = productDao.getProducts();
+		
+		assertTrue(productList.size() > 0);
+ 	}
+	
+	@Test
+	public void test4Delete() {
+        productDao.delete(1);
         
-        /* Delete */
-        productDao.delete(6);
-        
-        Product product = productDao.findById(6);
+        Product product = productDao.findById(1);
         assertNull(product);
 		
 	}

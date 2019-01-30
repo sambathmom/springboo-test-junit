@@ -15,6 +15,8 @@ public class ProductService {
 	@Autowired
 	private ProductDaoImp productDaoImp;
 	
+	public ProductService() {}
+	
 	public List getProducts() {
 		return productDaoImp.getProducts();
 	}

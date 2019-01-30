@@ -50,43 +50,50 @@ import com.example.demo.service.ProductService;
 	        }
 	        return new ResponseEntity<Product>(product, HttpStatus.OK);
 	  }
-	    
-		 @PostMapping(value="/create",headers="Accept=application/json")
-		 public ResponseEntity<Void> create(@RequestBody Product product, UriComponentsBuilder ucBuilder){
-		     System.out.println("Creating product "+ product.getName());
-		     productService.create(product);
-		     HttpHeaders headers = new HttpHeaders();
-		     headers.setLocation(ucBuilder.path("/product/{id}").buildAndExpand(product.getId()).toUri());
-		     return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-		 }
+    
+//	  @PostMapping(value="/create",headers="Accept=application/json")
+//	  public ResponseEntity<Void> create(@RequestBody Product product, UriComponentsBuilder ucBuilder){
+//		  System.out.println("Creating product "+ product.getName());
+//		  productService.create(product);
+//		  HttpHeaders headers = new HttpHeaders();
+//		  headers.setLocation(ucBuilder.path("/product/{id}").buildAndExpand(product.getId()).toUri());
+//		  return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+//	  }
+	  
+	  @PostMapping(value="/create",headers="Accept=application/json")
+	  public ResponseEntity<String> create(@RequestBody Product product){
+		  System.out.println("Creating product "+ product.getName());
+		  productService.create(product);
+		  return new ResponseEntity<String>(HttpStatus.CREATED);
+	  }
 
-		 @GetMapping(value="/get", headers="Accept=application/json")
-		 public List<Product> getAllProducts() {
-			 List<Product> products = productService.getProducts();
-			 return products;
-		
-		 }
+	  @GetMapping(value="/get", headers="Accept=application/json")
+	  public List<Product> getAllProducts() {
+		  List<Product> products = productService.getProducts();
+		  return products;
+	
+	  }
 
-		@PutMapping(value="/update", headers="Accept=application/json")
-		public ResponseEntity<String> update(@RequestBody Product currentProduct)
-		{
-			Product product = productService.findById(currentProduct.getId());
-			if (product == null) {
-				return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-			}
-			productService.update(currentProduct, currentProduct.getId());
-			return new ResponseEntity<String>(HttpStatus.OK);
-		}
-		
-		@DeleteMapping(value="/{id}", headers ="Accept=application/json")
-		public ResponseEntity<Product> delete(@PathVariable("id") int id){
-			Product product = productService.findById(id);
-			if (product == null) {
-				return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
-			}
-			productService.delete(id);
-			return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
-		}
+	  @PutMapping(value="/update", headers="Accept=application/json")
+	  public ResponseEntity<String> update(@RequestBody Product currentProduct)
+	  {
+		  Product product = productService.findById(currentProduct.getId());
+		  if (product == null) {
+			  return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		  }
+		  productService.update(currentProduct, currentProduct.getId());
+		  return new ResponseEntity<String>(HttpStatus.OK);
+	  }
+	
+	  @DeleteMapping(value="/{id}", headers ="Accept=application/json")
+	  public ResponseEntity<Product> delete(@PathVariable("id") int id){
+		  Product product = productService.findById(id);
+		  if (product == null) {
+			  return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
+		  }
+		  productService.delete(id);
+		  return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
+	  }
   
   }
  

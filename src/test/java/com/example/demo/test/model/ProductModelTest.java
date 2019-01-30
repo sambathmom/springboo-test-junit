@@ -14,9 +14,6 @@ import com.example.demo.model.Product;
 
 public class ProductModelTest extends SpringbootTestApplicationTests{
 	
-	@Autowired
-	TestEntityManager testEntityManger;
-	
 	static Product testProduct;
 	
 	@BeforeClass
